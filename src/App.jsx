@@ -1,22 +1,36 @@
 import { useState } from 'react';
-import Uploader from './components/Uploader';
 import Roulette from './components/Roulette';
+import Uploader from './components/Uploader';
 
 function App() {
   const [images, setImages] = useState([]);
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#050505', color: 'white', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+    <div style={{ backgroundColor: '#050505', minHeight: '100vh', width: '100%', overflowX: 'hidden' }}>
       {images.length === 0 ? (
-        <Uploader setImages={setImages} />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', padding: '20px', boxSizing: 'border-box' }}>
+          <div style={{ width: '100%', maxWidth: '600px' }}>
+            <Uploader setImages={setImages} />
+          </div>
+        </div>
       ) : (
-        <div style={{ width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
           <Roulette items={images} />
+          
           <button 
             onClick={() => setImages([])}
-            style={{ display: 'block', margin: '30px auto', background: 'none', border: 'none', color: '#444', cursor: 'pointer', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px' }}
+            style={{
+              marginTop: '40px',
+              background: 'transparent',
+              color: '#444',
+              border: '1px solid #222',
+              padding: '10px 20px',
+              cursor: 'pointer',
+              fontSize: '10px',
+              letterSpacing: '2px'
+            }}
           >
-            Reiniciar Galería
+            VOLVER A SUBIR IMÁGENES
           </button>
         </div>
       )}
