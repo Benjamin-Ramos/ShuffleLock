@@ -6,15 +6,22 @@
 
 ---
 
+## 📸 Imágenes de Prueba
+
+Para facilitar el testeo de la aplicación, el repositorio incluye una carpeta llamada `CardsTest`. 
+Dentro encontrarás una colección de **imágenes optimizadas** que puedes arrastrar y soltar directamente en la demo para ver la ruleta en acción al instante.
+
+---
+
 ## ✨ Características Principales
 
 * **Carga Dinámica:** Sube tus propias imágenes para personalizar las opciones de la ruleta.
-* **Ruleta Estilo CS:GO:** Animación de derecha a izquierda con una línea central indicadora para determinar el ganador.
-* **Scroll Infinito:** Gracias a una combinación de librerías de físicas, la ruleta se siente fluida, natural y alcanza los 60 FPS.
+* **Ruleta Estilo CS:GO:** Animación horizontal con una línea central indicadora para determinar el ganador.
+* **Scroll Infinito:** Gracias a una combinación de librerías de físicas, la ruleta se siente fluida, natural y alcanza los 60 FPS estables.
 * **Experiencia Sonora Inmersiva:** Incluye efectos de sonido (SFX) inspirados en las aperturas de Valve:
     * Sonido de confirmación al cargar imágenes.
     * Sonido de inicio al activar el giro.
-    * *Clicks* rítmicos cada vez que una opción cruza el marcador central.
+    * *Clicks* rítmicos sincronizados cada vez que una opción cruza el marcador central.
 * **Celebración Final:** Efecto de confeti dinámico mediante `canvas-confetti` al detenerse la ruleta.
 
 ---
@@ -27,7 +34,6 @@ El proyecto utiliza herramientas modernas de animación para garantizar una resp
 * **Animaciones de UI:** [Framer Motion](https://www.framer.com/motion/)
 * **Físicas y Resortes:** [React Spring](https://www.react-spring.dev/) & [Tiny Spring](https://github.com/pqina/tiny-spring)
 * **Efectos Visuales:** [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti)
-* **Componentes Especializados:** `@aufe/card-animation-react`
 
 ---
 
@@ -35,7 +41,20 @@ El proyecto utiliza herramientas modernas de animación para garantizar una resp
 
 Si deseas ejecutar este proyecto localmente, sigue estos pasos:
 
-1. **Clona el repositorio:**
-   ```bash
-   git clone https://github.com/Benjamin-Ramos/ShuffleLock.git
-   cd ShuffleLock
+1.  **Clona el repositorio:**
+    ```bash
+    git clone https://github.com/Benjamin-Ramos/ShuffleLock.git
+    cd ShuffleLock
+    ```
+
+2.  **Instala las dependencias:**
+    ```bash
+    npm install
+    # o si usas pnpm
+    pnpm install
+    ```
+
+3.  **Inicia el servidor de desarrollo:**
+    ```bash
+    npm run dev
+    ```
