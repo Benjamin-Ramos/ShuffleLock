@@ -48,7 +48,6 @@ const Roulette = ({ items }) => {
     if (rolling || items.length === 0 || displayList.length === 0) return;
 
     await controls.set({ x: 0 });
-
     setRolling(true);
     setWinnerImage(null);
 
@@ -95,7 +94,7 @@ const Roulette = ({ items }) => {
       setWinnerImage(chosen.src);
       setWinnerColor(chosen.color);
       setRolling(false);
-      setHistory(prev => [{ img: chosen.src, color: chosen.color }, ...prev]);
+      setHistory(prev => [...prev, { img: chosen.src, color: chosen.color }]);
     }, 500);
   };
 
@@ -103,6 +102,11 @@ const Roulette = ({ items }) => {
   const yM = useMotionValue(0);
   const rX = useSpring(useTransform(yM, [-0.5, 0.5], [15, -15]));
   const rY = useSpring(useTransform(xM, [-0.5, 0.5], [-15, 15]));
+
+  const historyGroups = [];
+  for (let i = 0; i < history.length; i += 3) {
+    historyGroups.push(history.slice(i, i + 3));
+  }
 
   return (
     <div
@@ -186,11 +190,10 @@ const Roulette = ({ items }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'relative',
-                clipPath: 'polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%)' // Corte angular
+                clipPath: 'polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%)'
               }}
             >
               <img src={item.src} style={{ width: '70%', filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.5))', pointerEvents: 'none' }} alt="" />
-              
               <div
                 style={{
                   position: 'absolute',
@@ -211,78 +214,78 @@ const Roulette = ({ items }) => {
       </div>
 
       <button
-      onClick={spin}
-      disabled={rolling}
-      style={{
-        width: '320px',
-        height: '70px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '0',
-        fontSize: '14px',
-        fontWeight: 'bold',
-        letterSpacing: '5px',
-        backgroundColor: rolling ? '#111' : '#fff',
-        color: rolling ? '#444' : '#000',
-        border: 'none',
-        cursor: rolling ? 'not-allowed' : 'pointer',
-        textTransform: 'uppercase',
-        transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-        clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)'
-      }}>
-      {rolling ? 'RULETEANDO...' : 'GIRA LA MALCRIADA'}
-      </button>
-
-      <div
+        onClick={spin}
+        disabled={rolling}
         style={{
-          width: '100%',
-          maxWidth: '1200px',
-          marginTop: '60px',
-          padding: '40px',
-          background: 'rgba(255,255,255,0.02)',
-          borderTop: '1px solid #1a1a1a'
+          width: '320px',
+          height: '70px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0',
+          fontSize: '14px',
+          fontWeight: 'bold',
+          letterSpacing: '5px',
+          backgroundColor: rolling ? '#111' : '#fff',
+          color: rolling ? '#444' : '#000',
+          border: 'none',
+          cursor: rolling ? 'not-allowed' : 'pointer',
+          textTransform: 'uppercase',
+          transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+          clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)'
         }}
       >
-        <p style={{ color: '#444', fontSize: '11px', letterSpacing: '3px', marginBottom: '25px', fontWeight: 'bold' }}>
+        {rolling ? 'RULETEANDO...' : 'GIRA LA MALCRIADA'}
+      </button>
+
+      <div style={{ width: '100%', maxWidth: '800px', marginTop: '60px', padding: '0 20px' }}>
+        <p style={{ color: '#444', fontSize: '11px', letterSpacing: '3px', marginBottom: '25px', fontWeight: 'bold', textTransform: 'uppercase' }}>
           &gt; HISTORIAL DE CARTEX
         </p>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
-            gap: '20px'
-          }}
-        >
-          {history.map((item, idx) => (
-            <motion.div
-              key={idx}
-              whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.05)' }}
-              onClick={() => {
-                setWinnerImage(item.img);
-                setWinnerColor(item.color);
-              }}
-              style={{
-                height: '180px',
-                background: '#050505',
-                border: '1px solid #1a1a1a',
-                cursor: 'pointer',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
-                borderLeft: `2px solid ${item.color}`
-              }}
-            >
-              <img
-                src={item.img}
-                style={{ height: '60%', objectFit: 'contain' }}
-                alt=""
-              />
-            </motion.div>
-          ))}
-        </div>
+        {historyGroups.map((group, groupIdx) => (
+          <div 
+            key={groupIdx} 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(3, 1fr)', 
+              gap: '12px', 
+              marginBottom: '12px',
+              padding: '15px',
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid #1a1a1a'
+            }}
+          >
+            {group.map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.05)' }}
+                onClick={() => {
+                  setWinnerImage(item.img);
+                  setWinnerColor(item.color);
+                }}
+                style={{
+                  aspectRatio: '1 / 1.1',
+                  background: '#0a0a0a',
+                  border: '1px solid #222',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  position: 'relative',
+                  borderBottom: `3px solid ${item.color}`,
+                  overflow: 'hidden'
+                }}
+              >
+                <img src={item.img} style={{ width: '75%', objectFit: 'contain' }} alt="" />
+                <div style={{ position: 'absolute', top: '5px', left: '5px', fontSize: '9px', color: '#333', fontWeight: 'bold' }}>
+                  {(groupIdx * 3) + idx + 1}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        ))}
       </div>
 
       <AnimatePresence>
@@ -329,7 +332,6 @@ const Roulette = ({ items }) => {
                   border: `2px solid ${winnerColor}`,
                   boxShadow: `0 0 60px ${winnerColor}44`,
                   display: 'flex',
-                  flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
                   position: 'relative',

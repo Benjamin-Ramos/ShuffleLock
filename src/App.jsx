@@ -25,6 +25,7 @@ function App() {
               color: '#444',
               border: '1px solid #222',
               padding: '10px 20px',
+              marginBottom: '50px',
               cursor: 'pointer',
               fontSize: '10px',
               letterSpacing: '2px'
