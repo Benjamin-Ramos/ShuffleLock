@@ -58,3 +58,14 @@ Si deseas ejecutar este proyecto localmente, sigue estos pasos:
     ```bash
     npm run dev
     ```
+
+---
+
+## 📄 Licencia
+Este proyecto es de código abierto bajo la licencia [MIT](LICENSE).
+
+---
+
+**Desarrollado por [Benjamin Ramos](https://github.com/Benjamin-Ramos)**
+
+    
