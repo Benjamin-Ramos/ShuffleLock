@@ -24,19 +24,43 @@ const Roulette = ({ items }) => {
   const cardWidth = 220;
   const gap = 12;
   const totalStep = cardWidth + gap;
+  
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const generateList = () => {
+    if (items.length > 0) {
+      let fullList = [];
+      const targetLength = 150;
+
+      while (fullList.length < targetLength) {
+        const shuffledBlock = shuffleArray(items).map(src => ({
+          src: src,
+          color: getRandomColor()
+        }));
+        fullList = [...fullList, ...shuffledBlock];
+      }
+
+      setDisplayList(fullList.slice(0, targetLength));
+    }
+  };
+
 
   useEffect(() => {
-    if (items.length > 0) {
-      const list = [];
-      for (let i = 0; i < 150; i++) {
-        list.push({
-          src: items[i % items.length],
-          color: getRandomColor()
-        });
-      }
-      setDisplayList(list);
-    }
+    generateList();
   }, [items]);
+
+  const handleReshuffle = () => {
+    if (rolling) return;
+    controls.set({ x: 0 });
+    generateList();
+  };
 
   const playTick = () => {
     const tick = new Audio('/click.m4a');
@@ -213,30 +237,57 @@ const Roulette = ({ items }) => {
         </motion.div>
       </div>
 
-      <button
-        onClick={spin}
-        disabled={rolling}
-        style={{
-          width: '320px',
-          height: '70px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '0',
-          fontSize: '14px',
-          fontWeight: 'bold',
-          letterSpacing: '5px',
-          backgroundColor: rolling ? '#111' : '#fff',
-          color: rolling ? '#444' : '#000',
-          border: 'none',
-          cursor: rolling ? 'not-allowed' : 'pointer',
-          textTransform: 'uppercase',
-          transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-          clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)'
-        }}
-      >
-        {rolling ? 'RULETEANDO...' : 'GIRA LA MALCRIADA'}
-      </button>
+      <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+        <button
+          onClick={spin}
+          disabled={rolling}
+          style={{
+            width: '320px',
+            height: '70px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            letterSpacing: '5px',
+            backgroundColor: rolling ? '#111' : '#fff',
+            color: rolling ? '#444' : '#000',
+            border: 'none',
+            cursor: rolling ? 'not-allowed' : 'pointer',
+            textTransform: 'uppercase',
+            transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+            clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)'
+          }}
+        >
+          {rolling ? 'RULETEANDO...' : 'GIRA LA MALCRIADA'}
+        </button>
+
+        <button
+          onClick={handleReshuffle}
+          disabled={rolling}
+          title="Reshuffle"
+          style={{
+            width: '120px',
+            height: '70px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#111',
+            color: '#fff',
+            border: '1px solid #222',
+            cursor: rolling ? 'not-allowed' : 'pointer',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            transition: 'all 0.3s ease',
+            clipPath: 'polygon(20% 0, 100% 0, 100% 80%, 80% 100%, 0 100%, 0 20%)'
+          }}
+        >
+          Reshuffle
+        </button>
+      </div>
 
       <div style={{ width: '100%', maxWidth: '800px', marginTop: '60px', padding: '0 20px' }}>
         <p style={{ color: '#444', fontSize: '11px', letterSpacing: '3px', marginBottom: '25px', fontWeight: 'bold', textTransform: 'uppercase' }}>
