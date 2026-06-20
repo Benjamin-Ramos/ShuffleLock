@@ -1,19 +1,19 @@
-# 🎰 ShuffleLock
+# ShuffleLock
 
 **ShuffleLock** es una aplicación interactiva desarrollada con **React 18** y **Vite** que recrea la emocionante experiencia de apertura de cajas al estilo CS:GO. Permite a los usuarios cargar sus propias imágenes y ponerlas a prueba en una ruleta de desplazamiento infinito con físicas suaves y efectos de sonido inmersivos.
 
-🌐 **Demo en vivo:** [shuffle-lock.vercel.app](https://shuffle-lock.vercel.app)
+**Demo en vivo:** [shuffle-lock.vercel.app](https://shuffle-lock.vercel.app)
 
 ---
 
-## 📸 Imágenes de Prueba
+## Imágenes de Prueba
 
 Para facilitar el testeo de la aplicación, el repositorio incluye una carpeta llamada `CardsTest`. 
 Dentro encontrarás una colección de **imágenes optimizadas** que puedes arrastrar y soltar directamente en la demo para ver la ruleta en acción al instante.
 
 ---
 
-## ✨ Características Principales
+## Características Principales
 
 * **Carga Dinámica:** Sube tus propias imágenes para personalizar las opciones de la ruleta.
 * **Ruleta Estilo CS:GO:** Animación horizontal con una línea central indicadora para determinar el ganador.
@@ -26,7 +26,7 @@ Dentro encontrarás una colección de **imágenes optimizadas** que puedes arras
 
 ---
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 El proyecto utiliza herramientas modernas de animación para garantizar una respuesta táctil y visual óptima:
 
@@ -37,7 +37,7 @@ El proyecto utiliza herramientas modernas de animación para garantizar una resp
 
 ---
 
-## 🚀 Instalación y Configuración
+## Instalación y Configuración
 
 Si deseas ejecutar este proyecto localmente, sigue estos pasos:
 
@@ -61,7 +61,7 @@ Si deseas ejecutar este proyecto localmente, sigue estos pasos:
 
 ---
 
-## 📄 Licencia
+## Licencia
 Este proyecto es de código abierto bajo la licencia [MIT](LICENSE).
 
 ---
